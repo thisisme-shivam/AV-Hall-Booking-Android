@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "594789174420",
+    "project_id": "av-hall-booking",
+    "storage_bucket": "av-hall-booking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594789174420:android:9bcbcd766387517fdcb881",
+        "android_client_info": {
+          "package_name": "com.example.bookavhall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594789174420-g2f4964dqu60jkl80a517uv6i8n8doep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAKXHxFm2nO5cIpK0sBwxcyFtHzuXAmNk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594789174420-g2f4964dqu60jkl80a517uv6i8n8doep.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
