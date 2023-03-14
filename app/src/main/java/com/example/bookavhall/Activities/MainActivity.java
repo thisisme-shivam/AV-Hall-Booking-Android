@@ -1,8 +1,10 @@
-package com.example.bookavhall;
+package com.example.bookavhall.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.bookavhall.R;
 
 public class MainActivity extends AppCompatActivity {
 
