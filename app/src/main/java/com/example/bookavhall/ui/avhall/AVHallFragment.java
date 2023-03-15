@@ -38,10 +38,7 @@ public class AVHallFragment extends Fragment  {
 
 
         binding = FragmentAvHallBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-
-        return root;
+        return binding.getRoot();
     }
 
     @Override
