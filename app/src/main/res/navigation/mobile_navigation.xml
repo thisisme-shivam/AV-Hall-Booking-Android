@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_av_hall">
+
+    <fragment
+        android:id="@+id/navigation_av_hall"
+        android:name="com.example.bookavhall.ui.avhall.AVHallFragment"
+        android:label="@string/title_av_hall"
+        tools:layout="@layout/fragment_av_hall" >
+        <action
+            android:id="@+id/action_navigation_av_hall_to_navigation_bookavhall"
+            app:destination="@id/navigation_bookavhall" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.bookavhall.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_reports"
+        android:name="com.example.bookavhall.ui.Report.ReportFragment"
+        android:label="@string/title_reports"
+        tools:layout="@layout/fragment_report" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.bookavhall.ui.Profile.ProifleFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_proifle" />
+    <fragment
+        android:id="@+id/navigation_bookavhall"
+        android:name="com.example.bookavhall.ui.bookavhall.BookAVHallFragment"
+        android:label="@string/title_book_av_hall"
+        tools:layout="@layout/fragment_av_hall" >
+        <action
+            android:id="@+id/action_navigation_bookavhall_to_navigation_av_hall"
+            app:destination="@id/navigation_av_hall" />
+    </fragment>
+</navigation>
