@@ -13,10 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bookavhall.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 public class ProifleFragment extends Fragment {
 
     private ProifleFragmentViewModel mViewModel;
+    DatabaseReference databaseReference;
+
 
     public static ProifleFragment newInstance() {
         return new ProifleFragment();
@@ -41,4 +45,11 @@ public class ProifleFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        String currentUi = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    }
 }
