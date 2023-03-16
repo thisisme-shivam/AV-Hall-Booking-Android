@@ -30,7 +30,7 @@ public class BookAVHallAdapter extends RecyclerView.Adapter<BookAVHallAdapter.Ti
     int selectedList[];
     public BookAVHallAdapter(Context context){
         timings = new ArrayList<>();
-        selectedList = new int[6];
+        selectedList = new int[0];
         this.context = context;
     }
     @NonNull
@@ -71,8 +71,9 @@ public class BookAVHallAdapter extends RecyclerView.Adapter<BookAVHallAdapter.Ti
     public void setTiming(ArrayList<String> timings) {
 
         notifyDataSetChanged();
-        this.selectedList = new int[6];
         this.timings = timings;
+        this.selectedList = new int[timings.size()];
+
 
     }
 

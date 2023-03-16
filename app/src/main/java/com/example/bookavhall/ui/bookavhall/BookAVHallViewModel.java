@@ -1,5 +1,7 @@
 package com.example.bookavhall.ui.bookavhall;
 
+import android.content.Context;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -17,6 +19,10 @@ public class BookAVHallViewModel extends ViewModel {
         repository = new BookAVHallRepository();
         firstYearTimeSlotMutable = new MutableLiveData<>();
         otherYearTimeSlotMutable = new MutableLiveData<>();
+    }
+
+    public void setContext(Context context) {
+        repository.setContext(context);
     }
 
     public MutableLiveData<TimeSlot> getFirstYearTimeSlotMutable() {
