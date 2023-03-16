@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/NameTV"
-        android:fontFamily="@font/ubunturegular"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         android:text="CS AV Hall (#ID)"
@@ -23,7 +23,6 @@
 
     <TextView
         android:id="@+id/LocationTV"
-        android:fontFamily="@font/ubunturegular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -38,7 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_marginBottom="5dp"
-        android:fontFamily="@font/ubunturegular"
         android:text="Dept"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,7 +49,6 @@
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/ubunturegular"
         android:text="Capacity: 300"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"

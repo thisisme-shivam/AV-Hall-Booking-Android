@@ -57,10 +57,10 @@ public class AVHallFragment extends Fragment  {
         avHallViewModel.getAvHalls().observe(getViewLifecycleOwner(), avHalls -> {
             avHallAdapter.setHalls((ArrayList<AVHalls>) avHalls, new AVHallFragmentInterface() {
                 @Override
-                public void onclick(String avHallName) {
+                public void onclick(String avHallUid) {
                     NavDirections action = AVHallFragmentDirections.actionNavigationAvHallToNavigationBookavhall();
                     Bundle bundle = new Bundle();
-                    bundle.putString("AV Hall Name", avHallName) ;
+                    bundle.putString("AV Hall ID", avHallUid) ;
                     controller.navigate(R.id.navigation_bookavhall,bundle);
                 }
             });
