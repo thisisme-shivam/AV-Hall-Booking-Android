@@ -57,6 +57,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database'
     implementation 'nl.bryanderidder:themed-toggle-button-group:1.4.1'
 
+    implementation 'de.hdodenhof:circleimageview:3.1.0' // Circlular ImageView
 
-    implementation 'de.hdodenhof:circleimageview:3.1.0' //Circlular ImageView
+
 }

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,7 +33,6 @@ public class BookAVHallFragment extends Fragment {
     BookAVHallViewModel bookAVHallViewModel;
 
     Dialog datepickDialog;
-    DatePicker datePicker;
     String avHallUid;
     ArrayList<String> firstYearList,otherYearList;
     BookAVHallAdapter adapter;
@@ -66,7 +64,6 @@ public class BookAVHallFragment extends Fragment {
             j++;
             }
             return timings;
-
     }
 
 
@@ -75,7 +72,6 @@ public class BookAVHallFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
         DateTimeFormatter dtf = null;
-        bookAVHallViewModel.setContext(getContext());
         avHallUid = getArguments().getString("AV Hall ID");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
              dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -92,8 +88,7 @@ public class BookAVHallFragment extends Fragment {
 
         setDialog();
         setOnclickListener();
-        datePicker = datepickDialog.findViewById(R.id.datepicker);
-        datePicker.setMinDate(System.currentTimeMillis() - 1000);
+
         RecyclerView recyclerView = getView().findViewById(R.id.timingrv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -206,7 +201,7 @@ public class BookAVHallFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-
+                DatePicker datePicker = datepickDialog.findViewById(R.id.datepicker);
                 String day = String.valueOf(datePicker.getDayOfMonth());
                 String month = String.valueOf(datePicker.getMonth() + 1);
                 String year = String.valueOf(datePicker.getYear());
@@ -223,7 +218,7 @@ public class BookAVHallFragment extends Fragment {
                 if(!isChecked)
                     return;
                 if(!firstYearList.isEmpty()){
-                    for(int i = 0;i<adapter.selectedList.length;i++)
+                    for(int i = 0;i<6;i++)
                         if(adapter.selectedList[i] == 1){
                             binding.timingrv.findViewHolderForAdapterPosition(i).itemView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
                             binding.timingrv.findViewHolderForAdapterPosition(i).itemView.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.border));
@@ -245,7 +240,7 @@ public class BookAVHallFragment extends Fragment {
                         return;
 
                 if(!otherYearList.isEmpty()){
-                    for(int i = 0;i<adapter.selectedList.length;i++)
+                    for(int i = 0;i<6;i++)
                         if(adapter.selectedList[i] == 1){
                             binding.timingrv.findViewHolderForAdapterPosition(i).itemView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
                             binding.timingrv.findViewHolderForAdapterPosition(i).itemView.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.border));
@@ -263,11 +258,9 @@ public class BookAVHallFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(!validate())
-                    return;
                 if(binding.radioother.isChecked()){
                     ArrayList<String>  bookingTime = new ArrayList<>();
-                    for(int i  = 0;i<adapter.selectedList.length;i++){
+                    for(int i  = 0;i<6;i++){
                         if(adapter.selectedList[i]==1){
                             bookingTime.add(firstYearList.get(i));
                         }
@@ -276,7 +269,7 @@ public class BookAVHallFragment extends Fragment {
                 }else{
 
                     ArrayList<String>  bookingTime = new ArrayList<>();
-                    for(int i  = 0;i<adapter.selectedList.length;i++){
+                    for(int i  = 0;i<6;i++){
                         if(adapter.selectedList[i]==1){
                             bookingTime.add(firstYearList.get(i));
                         }
@@ -288,23 +281,6 @@ public class BookAVHallFragment extends Fragment {
             }
         });
 
-    }
-
-    private boolean validate() {
-        if(binding.datepickbutton.getText().toString().equals("SELECT DATE")){
-            Toast.makeText(getContext(),"Select a Date",Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        boolean hasCheck = false;
-        for(int i = 0;i<adapter.selectedList.length;i++){
-            if(adapter.selectedList[i] == 1){
-                hasCheck = true;
-            }
-        }
-        if(!hasCheck){
-            Toast.makeText(getContext(),"Select a Timing",Toast.LENGTH_SHORT).show();
-        }
-        return hasCheck;
     }
 
     @Override

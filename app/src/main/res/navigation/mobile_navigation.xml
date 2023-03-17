@@ -28,9 +28,10 @@
         tools:layout="@layout/fragment_report" />
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.bookavhall.ui.Profile.ProifleFragment"
+        android:name="com.example.bookavhall.ui.Profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_proifle" />
+        tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/navigation_bookavhall"
         android:name="com.example.bookavhall.ui.bookavhall.BookAVHallFragment"
