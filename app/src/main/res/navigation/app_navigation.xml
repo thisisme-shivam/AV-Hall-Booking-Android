@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.bookavhall.Fragments.LoginFragment"
+        android:name="com.example.bookavhall.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPassFrag"
-        android:name="com.example.bookavhall.Fragments.ForgotPassFrag"
+        android:name="com.example.bookavhall.ui.login.ForgotPassFrag"
         android:label="ForgotPassFrag" >
         <action
             android:id="@+id/action_forgotPassFrag_to_loginFragment"

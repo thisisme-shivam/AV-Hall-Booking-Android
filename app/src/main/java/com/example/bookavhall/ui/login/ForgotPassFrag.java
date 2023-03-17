@@ -1,6 +1,5 @@
-package com.example.bookavhall.Fragments;
+package com.example.bookavhall.ui.login;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -18,11 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.bookavhall.R;
 import com.example.bookavhall.databinding.FragmentForgotPassBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPassFrag extends Fragment {
 

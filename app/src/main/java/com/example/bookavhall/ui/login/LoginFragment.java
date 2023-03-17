@@ -1,4 +1,4 @@
-package com.example.bookavhall.Fragments;
+package com.example.bookavhall.ui.login;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.example.bookavhall.activities.HomeActivity;
 import com.example.bookavhall.databinding.FragmentLoginBinding;
 import com.google.firebase.auth.FirebaseAuth;

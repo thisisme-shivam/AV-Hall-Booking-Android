@@ -38,10 +38,7 @@ public class AVHallFragment extends Fragment  {
 
 
         binding = FragmentAvHallBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-
-        return root;
+        return binding.getRoot();
     }
 
     @Override
@@ -55,6 +52,7 @@ public class AVHallFragment extends Fragment  {
         binding.recyclerView.setAdapter(avHallAdapter);
 
         avHallViewModel.getAvHalls().observe(getViewLifecycleOwner(), avHalls -> {
+
             avHallAdapter.setHalls((ArrayList<AVHalls>) avHalls, new AVHallFragmentInterface() {
                 @Override
                 public void onclick(String avHallUid) {
