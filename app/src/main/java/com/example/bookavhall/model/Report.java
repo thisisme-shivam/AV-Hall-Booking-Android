@@ -1,29 +1,38 @@
 package com.example.bookavhall.model;
 
 public class Report {
-    private String hall_name;
-    private String booking_id;
+    private String avHall;
+    private String bookingId;
     private String date;
     private String time;
+    private String uid;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public Report() {
 
     }
 
-    public String getHall_name() {
-        return hall_name;
+    public String getAvHall() {
+        return avHall;
     }
 
-    public void setHall_name(String hall_name) {
-        this.hall_name = hall_name;
+    public void setAvHall(String avHall) {
+        this.avHall = avHall;
     }
 
-    public String getBooking_id() {
-        return booking_id;
+    public String getBookingId() {
+        return bookingId;
     }
 
-    public void setBooking_id(String booking_id) {
-        this.booking_id = booking_id;
+    public void setBookingId(String bookingId) {
+        this.bookingId = bookingId;
     }
 
     public String getDate() {

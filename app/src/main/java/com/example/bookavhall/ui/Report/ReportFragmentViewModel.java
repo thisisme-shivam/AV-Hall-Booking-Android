@@ -7,22 +7,23 @@ import androidx.lifecycle.ViewModel;
 import com.example.bookavhall.model.Report;
 import com.example.bookavhall.repository.ReportsRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReportFragmentViewModel extends ViewModel {
     // TODO: Implement the ViewModel
 
     private ReportsRepository reportsRepository;
-    private MutableLiveData<List<Report>> reportList;
+    private MutableLiveData<ArrayList<Report>> reportList = new MutableLiveData<>();
 
     public ReportFragmentViewModel() {
         reportsRepository = new ReportsRepository();
         getReports();
     }
 
-    public LiveData<List<Report>> getReports() {
+    public LiveData<ArrayList<Report>> getReports() {
         if(reportList.getValue()==null) {
-            reportList = (MutableLiveData<List<Report>>) reportsRepository.getReports();
+            reportList = (MutableLiveData<ArrayList<Report>>) reportsRepository.getReports();
         }
         return reportList;
     }

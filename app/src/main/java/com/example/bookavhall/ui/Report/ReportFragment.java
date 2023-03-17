@@ -35,13 +35,14 @@ public class ReportFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        mViewModel = new ViewModelProvider(this).get(ReportFragmentViewModel.class);
-//        reportAdapter = new ReportAdapter();
-//        binding.reportsRv.setAdapter(reportAdapter);
-//
-//        mViewModel.getReports().observe(getViewLifecycleOwner(), reports -> {
-//            reportAdapter.notifyDataSetChanged();
-//        });
+        mViewModel = new ViewModelProvider(requireActivity()).get(ReportFragmentViewModel.class);
+        reportAdapter = new ReportAdapter();
+        binding.reportsRv.setAdapter(reportAdapter);
+
+        mViewModel.getReports().observe(getViewLifecycleOwner(), reports -> {
+            reportAdapter.setList(reports);
+            reportAdapter.notifyDataSetChanged();
+        });
 
     }
 }
