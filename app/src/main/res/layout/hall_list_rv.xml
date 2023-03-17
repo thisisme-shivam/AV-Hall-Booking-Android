@@ -10,6 +10,7 @@
     <TextView
         android:id="@+id/NameTV"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:fontFamily="@font/ubunturegular"
         android:layout_marginBottom="2dp"

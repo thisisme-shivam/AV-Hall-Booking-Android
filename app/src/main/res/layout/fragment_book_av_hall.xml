@@ -29,15 +29,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:checked="true"
-            android:onClick="onRadioButtonClicked"
             android:text="@string/first_year" />
 
         <RadioButton
             android:id="@+id/radioother"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
             android:text="@string/other_year" />
     </RadioGroup>
 
@@ -59,22 +56,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:padding="10dp"
-        android:text="2023/13/12"
+        android:text="Select Date"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
 
-    <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
-        android:id="@+id/themebuttongroup"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/timingrv"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/datepickbutton"
-        tools:layout_editor_absoluteX="10dp">
+        tools:layout_editor_absoluteX="10dp"
+        tools:listitem="@layout/timinglayout" />
 
-    </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bookavhallbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        android:text="Book AV Hall"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timingrv" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

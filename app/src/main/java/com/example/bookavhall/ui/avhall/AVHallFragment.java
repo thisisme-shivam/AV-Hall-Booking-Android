@@ -52,10 +52,15 @@ public class AVHallFragment extends Fragment  {
         binding.recyclerView.setAdapter(avHallAdapter);
 
         avHallViewModel.getAvHalls().observe(getViewLifecycleOwner(), avHalls -> {
-            avHallAdapter.setHalls((ArrayList<AVHalls>) avHalls, avHallName -> {
-                Bundle bundle = new Bundle();
-                bundle.putString("AV Hall Name", avHallName) ;
-                controller.navigate(R.id.navigation_bookavhall,bundle);
+
+            avHallAdapter.setHalls((ArrayList<AVHalls>) avHalls, new AVHallFragmentInterface() {
+                @Override
+                public void onclick(String avHallUid) {
+                    NavDirections action = AVHallFragmentDirections.actionNavigationAvHallToNavigationBookavhall();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("AV Hall ID", avHallUid) ;
+                    controller.navigate(R.id.navigation_bookavhall,bundle);
+                }
             });
             avHallAdapter.notifyDataSetChanged();
 
