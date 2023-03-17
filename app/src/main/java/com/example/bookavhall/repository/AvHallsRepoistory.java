@@ -30,8 +30,6 @@ public class AvHallsRepoistory {
         loadAvHalls();
     }
 
-
-
     public LiveData<List<AVHalls>> getAvHalls() {
         return avHallList;
     }

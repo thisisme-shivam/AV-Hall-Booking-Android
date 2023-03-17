@@ -1,4 +1,4 @@
-package com.example.bookavhall.Fragments;
+package com.example.bookavhall.ui.login;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

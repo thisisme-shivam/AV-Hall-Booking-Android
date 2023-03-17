@@ -29,15 +29,15 @@ public class LoginActivity extends AppCompatActivity {
 
     //Checking if user is already logged in or not
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        mAuth = FirebaseAuth.getInstance();
-//        FirebaseUser firebaseUser = mAuth.getCurrentUser();
-//        if(firebaseUser!=null) {
-//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//            finish();
-//        }
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        if(firebaseUser!=null) {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            finish();
+        }
+    }
 
 }

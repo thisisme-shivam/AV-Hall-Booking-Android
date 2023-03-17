@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
+        android:fontFamily="@font/ubunturegular"
         android:layout_marginBottom="2dp"
         android:text="CS AV Hall (#ID)"
         android:textColor="@color/black"
@@ -26,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:fontFamily="@font/ubunturegular"
         android:text="Location: 3rd floor CS Dept."
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,6 +37,7 @@
         android:id="@+id/DeptTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/ubunturegular"
         android:layout_margin="5dp"
         android:layout_marginBottom="5dp"
         android:text="Dept"
@@ -50,6 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Capacity: 300"
+        android:fontFamily="@font/ubunturegular"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LocationTV" />
