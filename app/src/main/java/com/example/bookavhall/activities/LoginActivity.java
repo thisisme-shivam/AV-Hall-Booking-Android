@@ -1,4 +1,4 @@
-package com.example.bookavhall.Activities;
+package com.example.bookavhall.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;

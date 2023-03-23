@@ -208,7 +208,11 @@ public class BookAVHallFragment extends Fragment {
 
 
                 String day = String.valueOf(datePicker.getDayOfMonth());
+                if(day.length() == 1)
+                    day = "0"+day;
                 String month = String.valueOf(datePicker.getMonth() + 1);
+                if(month.length() == 1)
+                    month = "0"+month;
                 String year = String.valueOf(datePicker.getYear());
 
                 String date = year+"/"+month+"/"+day;
