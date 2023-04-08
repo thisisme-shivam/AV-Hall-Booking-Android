@@ -1,4 +1,4 @@
-package com.example.bookavhall.ui.Report;
+package com.example.bookavhall.ui.report;
 
 import android.os.Build;
 import android.util.Log;
@@ -18,12 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHolder> {
 
@@ -82,13 +79,15 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
 
 
         String date = curr_report.getDate();
+
+        Log.i("datr",date);
         String year = date.substring(0, 4);
         String month = date.substring(4,6);
         String day = date.substring(6,8);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if(Integer.parseInt(year)< now.getYear())
-                holder.status.setText("Booked Before");
+                holder.status.setText("Previous Booking");
             else if(Integer.parseInt(month)<now.getMonthValue())
                 holder.status.setText("Booked Before");
             else if(Integer.parseInt(day)<now.getDayOfMonth()){

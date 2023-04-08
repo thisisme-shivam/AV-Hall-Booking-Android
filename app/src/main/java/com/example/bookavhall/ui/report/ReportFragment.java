@@ -1,6 +1,5 @@
-package com.example.bookavhall.ui.Report;
+package com.example.bookavhall.ui.report;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -13,11 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.bookavhall.R;
 import com.example.bookavhall.databinding.FragmentReportBinding;
-import com.example.bookavhall.model.Report;
-
-import java.util.List;
 
 public class ReportFragment extends Fragment {
 

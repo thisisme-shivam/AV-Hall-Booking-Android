@@ -79,7 +79,7 @@ public class LoginFragment extends Fragment {
                 NavDirections directions = LoginFragmentDirections.actionLoginFragmentToForgotPassFrag();
                 controller.navigate(directions);
             }
-        });
+    });
 
-    }
+}
 }

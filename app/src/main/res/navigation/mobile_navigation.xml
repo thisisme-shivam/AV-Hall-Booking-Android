@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/navigation_reports"
-        android:name="com.example.bookavhall.ui.Report.ReportFragment"
+        android:name="com.example.bookavhall.ui.report.ReportFragment"
         android:label="@string/title_reports"
         tools:layout="@layout/fragment_report" />
     <fragment

@@ -1,4 +1,4 @@
-package com.example.bookavhall.ui.Report;
+package com.example.bookavhall.ui.report;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -8,7 +8,6 @@ import com.example.bookavhall.model.Report;
 import com.example.bookavhall.repository.ReportsRepository;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ReportFragmentViewModel extends ViewModel {
     // TODO: Implement the ViewModel
