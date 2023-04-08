@@ -36,7 +36,6 @@ public class LoginViewModel extends ViewModel {
                     else{
                         errorLiveData.setValue(task.getException().getMessage());
                     }
-                });
-    }
+});}
 
 }
