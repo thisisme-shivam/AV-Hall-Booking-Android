@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.bookavhall.activities.Interfaces;
 import com.example.bookavhall.model.TimeSlot;
 import com.example.bookavhall.repository.BookAVHallRepository;
 
@@ -21,9 +22,6 @@ public class BookAVHallViewModel extends ViewModel {
         otherYearTimeSlotMutable = new MutableLiveData<>();
     }
 
-    public void setContext(Context context) {
-        repository.setContext(context);
-    }
 
     public MutableLiveData<TimeSlot> getFirstYearTimeSlotMutable() {
         if(firstYearTimeSlotMutable.getValue() == null){
@@ -41,7 +39,7 @@ public class BookAVHallViewModel extends ViewModel {
         return otherYearTimeSlotMutable;
     }
 
-    public void bookAVHall(String avHallUid, ArrayList<String> bookingTime, String s) {
-        repository.bookAVHall(avHallUid,bookingTime,s);
+    public void bookAVHall(String avHallUid, ArrayList<String> bookingTime, String s,String avHallName, Interfaces.LoadingInterface loadingInterface) {
+        repository.bookAVHall(avHallUid,bookingTime,s,avHallName,loadingInterface);
     }
 }

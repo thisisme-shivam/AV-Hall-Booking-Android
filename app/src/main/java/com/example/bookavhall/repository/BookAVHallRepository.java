@@ -3,15 +3,16 @@ package com.example.bookavhall.repository;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.bookavhall.activities.Interfaces;
+import com.example.bookavhall.activities.SendMail;
 import com.example.bookavhall.model.TimeSlot;
 import com.example.bookavhall.ui.bookavhall.Booking;
-import com.google.android.gms.common.PackageVerificationResult;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +25,9 @@ public class BookAVHallRepository {
 
     MutableLiveData<TimeSlot> firstYearTimeSlotMutable, otherYearTimeSlotMutable;
     DatabaseReference ref;
-    Context context;
+    String avHallName= "";
+
+    Interfaces.LoadingInterface loadingInterface;
     public BookAVHallRepository(){
 
         firstYearTimeSlotMutable = new MutableLiveData<>();
@@ -32,9 +35,6 @@ public class BookAVHallRepository {
         loadData();
     }
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
 
     public MutableLiveData<TimeSlot> getFirstYearTimeSlotMutable() {
         return firstYearTimeSlotMutable;
@@ -65,8 +65,10 @@ public class BookAVHallRepository {
         });
     }
 
-    public void bookAVHall(String avHallUid, ArrayList<String> bookingTime, String date) {
+    public void bookAVHall(String avHallUid, ArrayList<String> bookingTime, String date,String avHallName, Interfaces.LoadingInterface loadingInterface) {
         ArrayList<Booking> bookings = new ArrayList<>();
+        this.loadingInterface = loadingInterface;
+        this.avHallName = avHallName;
         FirebaseDatabase.getInstance().getReference().child("Bookings")
                 .child(avHallUid)
                 .child(date.replace("/","")).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
@@ -93,7 +95,7 @@ public class BookAVHallRepository {
         for(Booking booking:bookings){
             for(String book:bookingTime){
                 if(Objects.equals(booking.getTime(), book)){
-                    Toast.makeText(context,"Already Booked By Someone",Toast.LENGTH_SHORT).show();
+                    loadingInterface.alreadyBooked();
                     return;
                 }
             }
@@ -103,7 +105,7 @@ public class BookAVHallRepository {
     }
 
     private void book(String avHallUid, ArrayList<Booking> bookings, ArrayList<String> bookingTime, String date) {
-        for(String booking:bookingTime){
+        for(String booktime:bookingTime){
             String bookingId = FirebaseDatabase.getInstance().getReference().child("Bookings")
                     .child(avHallUid)
                     .child(date)
@@ -111,7 +113,7 @@ public class BookAVHallRepository {
             date = date.replace("/","");
             Booking bookingModel = new Booking();
             bookingModel.setBookingId(bookingId);
-            bookingModel.setTime(booking);
+            bookingModel.setTime(booktime);
             bookingModel.setUid("sid");
             bookingModel.setAvHall(avHallUid);
             bookingModel.setDate(date);
@@ -121,7 +123,16 @@ public class BookAVHallRepository {
                     .child(bookingId).setValue(bookingModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Log.i("Booked",booking);
+                            SendMail mail  = new SendMail();
+
+                            mail.sendBookingMailToThisUser(bookingModel,avHallName);
+
+                            loadingInterface.onCompleteTask();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            loadingInterface.onFailedTask();
                         }
                     });
 
@@ -130,7 +141,12 @@ public class BookAVHallRepository {
                     .child(bookingId).setValue(bookingModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(context,"AV Hall Booked",Toast.LENGTH_SHORT).show();
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            loadingInterface.onFailedTask();
                         }
                     });
         }

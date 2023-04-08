@@ -1,6 +1,7 @@
 package com.example.bookavhall.ui.bookavhall;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookavhall.R;
+import com.example.bookavhall.activities.Interfaces;
 import com.example.bookavhall.databinding.FragmentBookAvHallBinding;
 import com.example.bookavhall.model.TimeSlot;
 
@@ -32,9 +36,12 @@ public class BookAVHallFragment extends Fragment {
     FragmentBookAvHallBinding binding;
     BookAVHallViewModel bookAVHallViewModel;
 
-    Dialog datepickDialog;
+    Dialog datepickDialog,loadingDialog;
+    DatePicker datePicker;
     String avHallUid;
+    String avHallName="";
     ArrayList<String> firstYearList,otherYearList;
+    TextView messagetextview ;
     BookAVHallAdapter adapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,7 @@ public class BookAVHallFragment extends Fragment {
             j++;
             }
             return timings;
+
     }
 
 
@@ -71,8 +79,10 @@ public class BookAVHallFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+
         DateTimeFormatter dtf = null;
         avHallUid = getArguments().getString("AV Hall ID");
+        avHallName = getArguments().getString("AV Hall Name");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
              dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         }
@@ -88,7 +98,8 @@ public class BookAVHallFragment extends Fragment {
 
         setDialog();
         setOnclickListener();
-
+        datePicker = datepickDialog.findViewById(R.id.datepicker);
+        datePicker.setMinDate(System.currentTimeMillis() - 1000);
         RecyclerView recyclerView = getView().findViewById(R.id.timingrv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -187,6 +198,20 @@ public class BookAVHallFragment extends Fragment {
         datepickDialog.setContentView(R.layout.datepickerlayout);
 
         datepickDialog.setCancelable(false);
+
+
+        loadingDialog = new Dialog(getContext());
+        loadingDialog.setContentView(R.layout.dialog_box_loading);
+        loadingDialog.setCancelable(false);
+        messagetextview = loadingDialog.findViewById(R.id.messagetextview);
+
+        loadingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+
+            }
+        });
+
     }
 
     private void setOnclickListener() {
@@ -201,7 +226,7 @@ public class BookAVHallFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                DatePicker datePicker = datepickDialog.findViewById(R.id.datepicker);
+
                 String day = String.valueOf(datePicker.getDayOfMonth());
                 if(day.length() == 1)
                     day = "0"+day;
@@ -222,7 +247,7 @@ public class BookAVHallFragment extends Fragment {
                 if(!isChecked)
                     return;
                 if(!firstYearList.isEmpty()){
-                    for(int i = 0;i<6;i++)
+                    for(int i = 0;i<adapter.selectedList.length;i++)
                         if(adapter.selectedList[i] == 1){
                             binding.timingrv.findViewHolderForAdapterPosition(i).itemView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
                             binding.timingrv.findViewHolderForAdapterPosition(i).itemView.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.border));
@@ -244,7 +269,7 @@ public class BookAVHallFragment extends Fragment {
                         return;
 
                 if(!otherYearList.isEmpty()){
-                    for(int i = 0;i<6;i++)
+                    for(int i = 0;i<adapter.selectedList.length;i++)
                         if(adapter.selectedList[i] == 1){
                             binding.timingrv.findViewHolderForAdapterPosition(i).itemView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
                             binding.timingrv.findViewHolderForAdapterPosition(i).itemView.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.border));
@@ -262,29 +287,106 @@ public class BookAVHallFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                if(!validate())
+                    return;
+                loadingDialog.setCancelable(false);
+                loadingDialog.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+                messagetextview.setVisibility(View.GONE);
+                loadingDialog.show();
                 if(binding.radioother.isChecked()){
                     ArrayList<String>  bookingTime = new ArrayList<>();
-                    for(int i  = 0;i<6;i++){
+                    for(int i  = 0;i<adapter.selectedList.length;i++){
                         if(adapter.selectedList[i]==1){
                             bookingTime.add(firstYearList.get(i));
                         }
                     }
-                    bookAVHallViewModel.bookAVHall(avHallUid,bookingTime,binding.datepickbutton.getText().toString());
+                    bookAVHallViewModel.bookAVHall(avHallUid,bookingTime,binding.datepickbutton.getText().toString(),avHallName, new Interfaces.LoadingInterface() {
+                        @Override
+                        public void onCompleteTask() {
+                            showCompleteMessage();
+                        }
+
+                        @Override
+                        public void onFailedTask() {
+                            showFailMessage();
+                        }
+
+                        @Override
+                        public void alreadyBooked() {
+                            showAlreadyBookedMessage();
+                        }
+                    });
                 }else{
 
                     ArrayList<String>  bookingTime = new ArrayList<>();
-                    for(int i  = 0;i<6;i++){
+                    for(int i  = 0;i<adapter.selectedList.length;i++){
                         if(adapter.selectedList[i]==1){
                             bookingTime.add(firstYearList.get(i));
                         }
                     }
-                    bookAVHallViewModel.bookAVHall(avHallUid,bookingTime, binding.datepickbutton.getText().toString());
+                    bookAVHallViewModel.bookAVHall(avHallUid,bookingTime, binding.datepickbutton.getText().toString(),avHallName, new Interfaces.LoadingInterface() {
+                        @Override
+                        public void onCompleteTask() {
+                            showCompleteMessage();
+                        }
+
+                        @Override
+                        public void onFailedTask() {
+                            showFailMessage();
+                        }
+
+                        @Override
+                        public void alreadyBooked() {
+                            showAlreadyBookedMessage();
+                        }
+                    });
 
                 }
 
             }
         });
 
+    }
+
+    private void showCompleteMessage() {
+        loadingDialog.setCancelable(true);
+        loadingDialog.findViewById(R.id.progressBar).setVisibility(View.GONE);
+
+        messagetextview.setText("AV Hall Booked");
+        messagetextview.setVisibility(View.VISIBLE);
+    }
+
+    private void showFailMessage() {
+        loadingDialog.setCancelable(true);
+        loadingDialog.findViewById(R.id.progressBar).setVisibility(View.GONE);
+        messagetextview.setText("Sorry something went wrong");
+        messagetextview.setVisibility(View.VISIBLE);
+
+    }
+
+    private void showAlreadyBookedMessage(){
+        loadingDialog.setCancelable(true);
+        loadingDialog.findViewById(R.id.progressBar).setVisibility(View.GONE);
+        messagetextview.setText("AV Hall is already Booked\n for given timing");
+        messagetextview.setVisibility(View.VISIBLE);
+
+    }
+
+    private boolean validate() {
+        if(binding.datepickbutton.getText().toString().equals("SELECT DATE")){
+            Toast.makeText(getContext(),"Select a Date",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        boolean hasCheck = false;
+        for(int i = 0;i<adapter.selectedList.length;i++){
+            if(adapter.selectedList[i] == 1){
+                hasCheck = true;
+            }
+        }
+        if(!hasCheck){
+            Toast.makeText(getContext(),"Select a Timing",Toast.LENGTH_SHORT).show();
+        }
+        return hasCheck;
     }
 
     @Override

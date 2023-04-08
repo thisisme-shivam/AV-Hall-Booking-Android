@@ -24,7 +24,7 @@ public class AVHallFragment extends Fragment  {
 
 
     public interface AVHallFragmentInterface{
-        public void onclick(String avHallName);
+        public void onclick(String avHallName, String name);
     }
 
 
@@ -55,10 +55,11 @@ public class AVHallFragment extends Fragment  {
 
             avHallAdapter.setHalls((ArrayList<AVHalls>) avHalls, new AVHallFragmentInterface() {
                 @Override
-                public void onclick(String avHallUid) {
+                public void onclick(String avHallUid, String name) {
                     NavDirections action = AVHallFragmentDirections.actionNavigationAvHallToNavigationBookavhall();
                     Bundle bundle = new Bundle();
                     bundle.putString("AV Hall ID", avHallUid) ;
+                    bundle.putString("AV Hall Name",name);
                     controller.navigate(R.id.navigation_bookavhall,bundle);
                 }
             });

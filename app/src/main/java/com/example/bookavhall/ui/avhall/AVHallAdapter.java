@@ -36,10 +36,10 @@ public class AVHallAdapter extends RecyclerView.Adapter<AVHallAdapter.AVHallHold
         holder.location.setText("Location: " + curr_av.getLocation());
         holder.capacity.setText("Capacity: " + String.valueOf(curr_av.getCapacity()));
         holder.dept.setText("Dept. " + curr_av.getDept());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.findViewById(R.id.view).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                avHallFragmentInterface.onclick(curr_av.getAvHallUid());
+                avHallFragmentInterface.onclick(curr_av.getAvHallUid(),curr_av.getName());
             }
         });
     }
