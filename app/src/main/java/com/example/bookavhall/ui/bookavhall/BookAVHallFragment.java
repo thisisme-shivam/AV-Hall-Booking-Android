@@ -69,8 +69,8 @@ public class BookAVHallFragment extends Fragment {
             timings.add(stime +" to "+ etime);
             Log.i("timing:",timings.get(j));
             j++;
-            }
-            return timings;
+        }
+        return timings;
 
     }
 
@@ -84,12 +84,12 @@ public class BookAVHallFragment extends Fragment {
         avHallUid = getArguments().getString("AV Hall ID");
         avHallName = getArguments().getString("AV Hall Name");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-             dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         }
         LocalDateTime now;
         now = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-             now = LocalDateTime.now();
+            now = LocalDateTime.now();
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -133,8 +133,10 @@ public class BookAVHallFragment extends Fragment {
                     }else{
                         if(start == 12){
                             timeHour = start + ":"+timeSlot.getEndTime().split(":")[1];
-                        }else
-                            timeHour = start-12 + ":"+timeSlot.getEndTime().split(":")[1];
+                        }else{
+                            timeHour = "0"+ String.valueOf(start-12) + ":"+timeSlot.getEndTime().split(":")[1];
+                        }
+
                     }
                     firstYearList.add(timeHour);
                     Log.i("time",timeHour);
@@ -163,7 +165,7 @@ public class BookAVHallFragment extends Fragment {
                 int end = Integer.parseInt(timeSlot.getEndTime().split(":")[0]);
                 int lunch = Integer.parseInt(timeSlot.getLunchTime().split(":")[0]);
                 if(lunch == 0)
-                        lunch = 12;
+                    lunch = 12;
 
                 Log.i("start", String.valueOf(start + end));
                 while(start<end+13){
@@ -266,7 +268,7 @@ public class BookAVHallFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(!isChecked)
-                        return;
+                    return;
 
                 if(!otherYearList.isEmpty()){
                     for(int i = 0;i<adapter.selectedList.length;i++)
