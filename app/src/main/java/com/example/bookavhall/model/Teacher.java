@@ -1,4 +1,4 @@
-package com.example.bookavhall.ui.profile;
+package com.example.bookavhall.model;
 
 public class Teacher {
     String firstName,lastName,fcmToken,phoneNumber,uid,gmail;
@@ -50,6 +50,6 @@ public class Teacher {
     }
 
     public void setGmail(String gmail) {
-        this.gmail =gmail;
-}
+        this.gmail = gmail;
+    }
 }
