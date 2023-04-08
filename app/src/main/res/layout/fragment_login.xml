@@ -7,15 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginFragment">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/sistec_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".4" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/AppNameTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="150dp"
         android:text="AV HALL BOOKING"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="46sp"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,11 +33,15 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/EmailET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="75dp"
+        android:paddingLeft="12dp"
+        app:layout_constraintWidth_percent=".9"
+        app:layout_constraintHeight_percent=".07"
         android:layout_marginEnd="5dp"
+        android:background="@drawable/edt_text_layout"
         android:maxLines="1"
         android:hint="Enter your email"
         android:textSize="24sp"
@@ -37,12 +51,16 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/PasswordET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="5dp"
         android:inputType="textPassword"
         android:layout_marginTop="30dp"
+        android:background="@drawable/edt_text_layout"
         android:maxLines="1"
+        android:paddingLeft="12dp"
+        app:layout_constraintWidth_percent=".9"
+        app:layout_constraintHeight_percent=".07"
         android:layout_marginEnd="5dp"
         android:hint="Enter your password"
         android:textSize="24sp"
@@ -50,14 +68,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EmailET" />
 
-    <com.google.android.material.button.MaterialButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/LoginBtn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:background="@drawable/button_rounds"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/btn_layout"
         android:padding="10dp"
         android:text="LOGIN"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,9 +86,12 @@
         android:id="@+id/ForgotPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Forgot Password?"
-        android:textSize="24sp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/LoginBtn"
         app:layout_constraintStart_toStartOf="@+id/LoginBtn"
         app:layout_constraintTop_toBottomOf="@+id/LoginBtn" />

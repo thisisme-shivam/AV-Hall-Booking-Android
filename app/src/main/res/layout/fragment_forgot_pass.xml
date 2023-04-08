@@ -6,28 +6,34 @@
     android:layout_height="match_parent">
 
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/email"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
+        android:background="@drawable/edt_text_layout"
         android:hint="Enter your email"
+        android:padding="12dp"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".07"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".9" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/send_link_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="247dp"
         android:layout_height="50dp"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="162dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_layout"
         android:text="Send Link"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        app:layout_constraintWidth_percent=".6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
