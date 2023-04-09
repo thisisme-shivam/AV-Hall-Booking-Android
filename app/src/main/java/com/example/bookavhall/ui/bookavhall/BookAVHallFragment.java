@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookavhall.R;
+import com.example.bookavhall.SendNotification;
 import com.example.bookavhall.activities.Interfaces;
 import com.example.bookavhall.databinding.FragmentBookAvHallBinding;
 import com.example.bookavhall.model.TimeSlot;
@@ -105,7 +106,7 @@ public class BookAVHallFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-
+        bookAVHallViewModel.setContext(requireActivity());
         bookAVHallViewModel.getFirstYearTimeSlotMutable().observe(getViewLifecycleOwner(), new Observer<TimeSlot>() {
             @Override
             public void onChanged(TimeSlot timeSlot) {
@@ -356,6 +357,8 @@ public class BookAVHallFragment extends Fragment {
 
         messagetextview.setText("AV Hall Booked");
         messagetextview.setVisibility(View.VISIBLE);
+
+
     }
 
     private void showFailMessage() {

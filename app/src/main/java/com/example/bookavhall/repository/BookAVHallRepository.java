@@ -5,12 +5,14 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.bookavhall.SendNotification;
 import com.example.bookavhall.activities.Interfaces;
 import com.example.bookavhall.activities.SendMail;
 import com.example.bookavhall.model.TimeSlot;
-import com.example.bookavhall.ui.bookavhall.Booking;
+import com.example.bookavhall.model.Booking;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,15 +21,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class BookAVHallRepository {
+
 
     MutableLiveData<TimeSlot> firstYearTimeSlotMutable, otherYearTimeSlotMutable;
     DatabaseReference ref;
     String avHallName= "";
 
     Interfaces.LoadingInterface loadingInterface;
+    private Context context;
+
     public BookAVHallRepository(){
 
         firstYearTimeSlotMutable = new MutableLiveData<>();
@@ -70,8 +76,7 @@ public class BookAVHallRepository {
         this.loadingInterface = loadingInterface;
         this.avHallName = avHallName;
         FirebaseDatabase.getInstance().getReference().child("Bookings")
-                .child(avHallUid)
-                .child(date.replace("/","")).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                .child(date).child(avHallUid).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
                     @Override
                     public void onSuccess(DataSnapshot dataSnapshot) {
                         Log.i("date",avHallUid + " " + date);
@@ -94,7 +99,7 @@ public class BookAVHallRepository {
         Log.i("check","us");
         for(Booking booking:bookings){
             for(String book:bookingTime){
-                if(Objects.equals(booking.getTime(), book)){
+                if(Objects.equals(booking.getBookingTime(), book)){
                     loadingInterface.alreadyBooked();
                     return;
                 }
@@ -110,24 +115,26 @@ public class BookAVHallRepository {
                     .child(avHallUid)
                     .child(date)
                     .push().getKey();
-            date = date.replace("/","");
+
             Booking bookingModel = new Booking();
-            bookingModel.setBookingId(bookingId);
-            bookingModel.setTime(booktime);
-            bookingModel.setUid("sid");
-            bookingModel.setAvHall(avHallUid);
-            bookingModel.setDate(date);
+            bookingModel.setBookingUid(bookingId);
+            bookingModel.setBookingTime(booktime);
+            bookingModel.setUserUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            bookingModel.setAvHallUid(avHallUid);
+            bookingModel.setBookingDate(date);
             FirebaseDatabase.getInstance().getReference().child("Bookings")
-                    .child(avHallUid)
                     .child(date)
+                    .child(avHallUid)
                     .child(bookingId).setValue(bookingModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             SendMail mail  = new SendMail();
 
                             mail.sendBookingMailToThisUser(bookingModel,avHallName);
-
+                            SendNotification notification = new SendNotification();
+                            notification.sendMessageToAdmin(context,bookingModel);
                             loadingInterface.onCompleteTask();
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -136,9 +143,13 @@ public class BookAVHallRepository {
                         }
                     });
 
+            HashMap<String,String> mp = new HashMap<>();
+            mp.put("bookingUid",bookingId);
+            mp.put("avHallUid",avHallUid);
             FirebaseDatabase.getInstance().getReference().child("UserBookings")
                     .child(FirebaseAuth.getInstance().getUid())
-                    .child(bookingId).setValue(bookingModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    .child(date).child(bookingId).setValue(mp)
+                  .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
 
@@ -152,5 +163,9 @@ public class BookAVHallRepository {
         }
 
 
+    }
+
+    public void setContext(Context requireActivity) {
+        this.context = requireActivity;
     }
 }

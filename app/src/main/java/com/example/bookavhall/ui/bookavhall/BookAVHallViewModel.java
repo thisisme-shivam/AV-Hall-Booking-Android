@@ -2,6 +2,8 @@ package com.example.bookavhall.ui.bookavhall;
 
 import android.content.Context;
 
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -41,5 +43,9 @@ public class BookAVHallViewModel extends ViewModel {
 
     public void bookAVHall(String avHallUid, ArrayList<String> bookingTime, String s,String avHallName, Interfaces.LoadingInterface loadingInterface) {
         repository.bookAVHall(avHallUid,bookingTime,s,avHallName,loadingInterface);
+    }
+
+    public void setContext(Context requireActivity) {
+        repository.setContext(requireActivity);
     }
 }

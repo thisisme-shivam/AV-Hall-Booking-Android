@@ -63,22 +63,10 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
 
         database = FirebaseDatabase.getInstance().getReference();
 
-        database.child("AVHalls").child(curr_report.getAvHall()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String curr_hall_name;
-                curr_hall_name = snapshot.child("name").getValue(String.class);
-                holder.hall_name.setText(curr_hall_name);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        holder.hall_name.setText(curr_report.getAvHall());
 
-            }
-        });
-
-
-        String date = curr_report.getDate();
+        String date = curr_report.getDate().replace("/","");
 
         Log.i("datr",date);
         String year = date.substring(0, 4);
